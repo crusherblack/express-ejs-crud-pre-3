@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1 style="text-align: center;">List Posts</h1>
+  <% if (messages.success) { %>
+    <h3 style="color: green;text-align: center;">
+      <%= messages.success %>
+    </h3>
+    <% } %>
+      <div style="margin-bottom: 20px;">
+        <a href="/add" class="btn-primary">Add Post</a>
+      </div>
+
+      <div class="card-container">
+        <% data.forEach((item)=> { %>
+          <div class="card">
+            <img src=<%=item.thumbnail %>
+            alt="">
+            <div class="card-body">
+              <h3>
+                <%= item.title %>
+              </h3>
+              <p>
+                <%= item.content %>
+              </p>
+              <h4>
+                <%= item.categoryName %>
+              </h4>
+              <a href="/delete/<%= item.postId %> " onclick="return confirm('Apakah kamu mau hapus data ini')"
+                class="btn-primary">Delete Post</a>
+            </div>
+
+          </div>
+          <% }) %>
+
+      </div>
+
+</body>
+
+</html>

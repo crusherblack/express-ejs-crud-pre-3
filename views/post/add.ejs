@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+
+    <div class="form-container">
+
+
+
+        <form action="/store" method="POST">
+            <h1 style="text-align: center;">Add Form</h1>
+            <% if (messages.error) { %>
+                <h3 style="color: red;">
+                    <%= messages.error %>
+                </h3>
+                <% } %>
+
+
+                    <div>
+                        <label for="">Title</label>
+                        <input value="<%= title %> " name="title" type="text" placeholder="title" />
+                    </div>
+                    <div>
+                        <label for="">Content</label>
+                        <textarea name="content" type="text" placeholder="Content"><%= content %></textarea>
+                    </div>
+                    <div>
+                        <label for="">thumbnail</label>
+                        <input value="<%= thumbnail %> " name="thumbnail" type="text" placeholder="Url thumbnail" />
+                    </div>
+                    <div>
+                        <label for="">Category</label>
+                        <input value="<%= categoryId %> " name="categoryId" type="number" placeholder="Category ID" />
+                    </div>
+                    <div>
+                        <label for="">Author</label>
+                        <input value="<%= authorId %> " name="authorId" type="number" placeholder="Author ID" />
+                    </div>
+                    <div>
+                        <button class="btn-primary" style="width: 100%;">Simpan Data</button>
+                    </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
