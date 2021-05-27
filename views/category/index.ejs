@@ -41,9 +41,6 @@
             <a class="nav-link" href="/category">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
         </ul>
@@ -51,45 +48,28 @@
     </div>
   </nav>
   <div class="container">
-    <h1 style="text-align: center;">List Posts</h1>
+    <h1 style="text-align: center;">List Category</h1>
     <% if (messages.success) { %>
       <h3 style="color: green;text-align: center;">
         <%= messages.success %>
       </h3>
       <% } %>
         <div style="margin-bottom: 20px;">
-          <a href="/post/add" class="btn-primary">Add Post</a>
+          <a href="/category/add" class="btn-primary">Add Category</a>
         </div>
 
         <div class="row">
           <% data.forEach((item)=> { %>
-            <div class="col-md-3 card shadow-sm">
-              <img style="height: 200px;" src=<%=item.thumbnail %> />
-              <title>
-                <%= item.title %>
-              </title>
-              <div class="card-body">
-                <p class="card-text">
-                  <%= item.content %>
-                </p>
-
-              </div>
-              <div class="card-footer d-flex justify-content-between align-items-center bg-white">
-                <div class="btn-group">
-                  <a type="button" href="/post/delete/<%= item.postId %> "
-                    onclick="return confirm('Apakah kamu mau hapus data ini')"
-                    class="btn btn-sm btn-outline-danger">Delete</a>
-                  <a type="button" href="/post/edit/<%= item.postId %> " class="btn btn-sm btn-outline-success">Edit</a>
-
-                </div>
-                <small class="text-muted">
-                  <%= item.categoryName %>
-                </small>
-              </div>
+            <div>
+              <h1 style="display: inline;">
+                <%= item.name %>
+              </h1>
+              <a href="/category/edit/<%= item.id %>" class="btn btn-sm btn-success">Edit</a>
             </div>
             <% }) %>
-
         </div>
+
+
   </div>
 
 </body>

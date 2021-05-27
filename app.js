@@ -6,8 +6,13 @@ const logger = require("morgan");
 const flash = require("express-flash");
 const session = require("express-session");
 
-const indexRouter = require("./routes/index");
+const postRouter = require("./routes/post");
 const categoryRouter = require("./routes/category");
+const contohRouter = require("./routes/contoh/about");
+const authRouter = require("./routes/auth");
+
+const { authCheck } = require("./middleware/auth");
+
 require("./lib/db");
 
 const app = express();
@@ -24,7 +29,10 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
-    cookie: { maxAge: 60000 },
+    cookie: {
+      expires: 30 * 24 * 60 * 60 * 1000,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    }, //hari * jam * menit * detik * milisecond
     store: new session.MemoryStore(),
     saveUninitialized: true,
     resave: "true",
@@ -34,8 +42,10 @@ app.use(
 
 app.use(flash());
 
-app.use("/", indexRouter);
-app.use("/category", categoryRouter);
+app.use("/post", authCheck, postRouter);
+app.use("/category", authCheck, categoryRouter);
+app.use("/contoh", authCheck, contohRouter);
+app.use("/", authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

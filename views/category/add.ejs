@@ -52,49 +52,21 @@
 
 
 
-        <form action="/post/store" method="POST">
-            <h1 style="text-align: center;">Add Form</h1>
+        <form action="/category/store" method="POST">
+            <h1 style="text-align: center;">Add Category</h1>
             <% if (messages.error) { %>
                 <h3 style="color: red;">
                     <%= messages.error %>
                 </h3>
                 <% } %>
+                    <div>
+                        <label for="">Category Name</label>
+                        <input value="<%= name %> " name="name" type="text" placeholder="Name" />
+                    </div>
 
-
-                    <div>
-                        <label for="">Title</label>
-                        <input value="<%= title %> " name="title" type="text" placeholder="title" />
+                    <div class="mt-3">
+                        <button class="btn-primary" style="width: 100%;">Simpan Data</button>
                     </div>
-                    <div>
-                        <label for="">Content</label>
-                        <textarea name="content" type="text" placeholder="Content"><%= content %></textarea>
-                    </div>
-                    <div>
-                        <label for="">thumbnail</label>
-                        <input value="<%= thumbnail %> " name="thumbnail" type="text" placeholder="Url thumbnail" />
-                    </div>
-                    <div>
-                        <label for="">Category</label>
-                        <select name="categoryId" class="form-control">
-                            <% categories.forEach(category=> { %>
-                                <option value="<%= category.id %> ">
-                                    <%= category.name %>
-                                </option>
-                                <% }) %>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="">Author</label>
-                        <select name="authorId" class="form-control">
-                            <% authors.forEach(author=> { %>
-                                <option value="<%= author.id %> ">
-                                    <%= author.name %>
-                                </option>
-                                <% }) %>
-                        </select>
-                        <div class="mt-3">
-                            <button class="btn-primary" style="width: 100%;">Simpan Data</button>
-                        </div>
         </form>
     </div>
 

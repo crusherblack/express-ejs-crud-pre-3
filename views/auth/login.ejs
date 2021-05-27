@@ -40,9 +40,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/category">Category</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -52,49 +50,28 @@
 
 
 
-        <form action="/post/store" method="POST">
-            <h1 style="text-align: center;">Add Form</h1>
+        <form action="/auth-login" method="POST">
+            <h1 style="text-align: center;">Login Form</h1>
             <% if (messages.error) { %>
                 <h3 style="color: red;">
                     <%= messages.error %>
                 </h3>
                 <% } %>
 
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input class="form-control" value="<%= email %> " name="email" type="email"
+                            placeholder="Email" />
+                    </div>
 
-                    <div>
-                        <label for="">Title</label>
-                        <input value="<%= title %> " name="title" type="text" placeholder="title" />
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input class="form-control" name="password" type="password" placeholder="Password" />
                     </div>
-                    <div>
-                        <label for="">Content</label>
-                        <textarea name="content" type="text" placeholder="Content"><%= content %></textarea>
+
+                    <div class="mt-3">
+                        <button class="btn-primary" style="width: 100%;">Login</button>
                     </div>
-                    <div>
-                        <label for="">thumbnail</label>
-                        <input value="<%= thumbnail %> " name="thumbnail" type="text" placeholder="Url thumbnail" />
-                    </div>
-                    <div>
-                        <label for="">Category</label>
-                        <select name="categoryId" class="form-control">
-                            <% categories.forEach(category=> { %>
-                                <option value="<%= category.id %> ">
-                                    <%= category.name %>
-                                </option>
-                                <% }) %>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="">Author</label>
-                        <select name="authorId" class="form-control">
-                            <% authors.forEach(author=> { %>
-                                <option value="<%= author.id %> ">
-                                    <%= author.name %>
-                                </option>
-                                <% }) %>
-                        </select>
-                        <div class="mt-3">
-                            <button class="btn-primary" style="width: 100%;">Simpan Data</button>
-                        </div>
         </form>
     </div>
 

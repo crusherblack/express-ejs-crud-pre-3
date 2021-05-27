@@ -24,12 +24,26 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/add", (req, res) => {
-  res.render("post/add", {
-    title: "",
-    content: "",
-    thumbnail: "",
-    categoryId: "",
-    authorId: "",
+  dbConnection.query("SELECT * FROM category", (error, data) => {
+    const categories = data;
+
+    dbConnection.query("SELECT * FROM user", (error, data) => {
+      const authors = data;
+
+      if (error) {
+        console.log(error);
+      } else {
+        res.render("post/add", {
+          categories,
+          authors,
+          title: "",
+          content: "",
+          thumbnail: "",
+          categoryId: "",
+          authorId: "",
+        });
+      }
+    });
   });
 });
 
@@ -65,7 +79,7 @@ router.post("/store", (req, res) => {
         req.flash("error", error);
       } else {
         req.flash("success", "Berhasil tambah post");
-        res.redirect("/");
+        res.redirect("/post");
       }
     });
   }
@@ -87,9 +101,76 @@ router.get("/delete/(:id)", (req, res) => {
       req.flash("error", error);
     } else {
       req.flash("success", "Berhasil hapus data");
-      res.redirect("/");
+      res.redirect("/post");
     }
   });
+});
+
+router.get("/edit/(:id)", (req, res) => {
+  const id = req.params.id;
+
+  dbConnection.query("SELECT * FROM post WHERE id= " + id, (error, data) => {
+    if (error) {
+      req.flash("error", error);
+    } else {
+      res.render("post/edit", {
+        id: data[0].id,
+        title: data[0].title,
+        content: data[0].content,
+        thumbnail: data[0].thumbnail,
+        categoryId: +data[0].category_id,
+        authorId: parseInt(data[0].author_id),
+      });
+    }
+  });
+});
+
+router.post("/update", (req, res) => {
+  const { title, content, thumbnail, categoryId, authorId, id } = req.body;
+  let error = false;
+
+  if (
+    !title.length ||
+    !content.length ||
+    !thumbnail.length ||
+    !categoryId.length ||
+    !authorId.length
+  ) {
+    error = true;
+
+    req.flash("error", "Tolong lengkapi seluruh data");
+
+    res.render("post/edit", {
+      title,
+      content,
+      thumbnail,
+      categoryId,
+      authorId,
+    });
+  }
+
+  if (!error) {
+    const formData = {
+      title,
+      content,
+      thumbnail,
+      category_id: categoryId,
+      author_id: authorId,
+    };
+
+    dbConnection.query(
+      "UPDATE post SET ? WHERE id = " + id,
+      formData,
+      (error) => {
+        if (error) {
+          req.flash("error", error);
+        } else {
+          req.flash("success", "Berhasil edit post");
+          res.redirect("/post");
+        }
+      }
+    );
+  }
 });
 
 router.get("/blog", (request, response) => {
